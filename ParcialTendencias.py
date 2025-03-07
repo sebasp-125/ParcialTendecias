@@ -1,6 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
+#Importe los paquetes necesarios para poder crear la Conexion a la base de datos, Junto con el manejador de error de MysqlConnector.
 
+#Cree un objeto con las credenciales para la conexion a PhpMyAdmin.
 def connect_db():
     try:
         connection = mysql.connector.connect(
@@ -9,13 +11,16 @@ def connect_db():
             password="",
             database="parcial-tendencias"
         )
+
+        #Se verifica el Status de la conexion. True o False
         if connection.is_connected():
             print("Conexión exitosa a la base de datos")
         return connection
     except Error as e:
         print(f"Error al conectar a la base de datos: {e}")
         return None
-
+        
+#Se crearon clases segun los requerimientos del Documento. 
 class Cliente:
     def __init__(self, id, nombre, apellido, email, telefono, direccion):
         self.id = id
@@ -47,7 +52,7 @@ def insertar_cliente():
                 INSERT INTO clientes (nombre, apellido, email, telefono, direccion) 
                 VALUES (%s, %s, %s, %s, %s)
             """, (nombre, apellido, email, telefono, direccion))
-            
+            #Se le pasan los parametros dinamicamente!
             connection.commit()
             print("Cliente insertado correctamente")
         except Error as e:
